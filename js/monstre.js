@@ -6,15 +6,15 @@ $(document).ready(function(){
 		}
 	};
 	var deplacement = true;
-	var LaMap = 	[[1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+	var LaMap = 	[[1,1,1,1,1,1,1,1,1,1,1,1,1,8,8,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 					 [1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
 					 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
 					 [1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
 					 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
 					 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,0,0,0,0,0,1],
 					 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1],
-					 [0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-					 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+					 [8,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
+					 [8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8],
 					 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 					 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 					 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -25,7 +25,7 @@ $(document).ready(function(){
 					 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1],
 					 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1],
 					 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1],
-					 [1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]];
+					 [1,1,1,1,1,1,1,1,1,1,1,1,1,8,8,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]];
 	var emplacementY;
 	var emplacementX;
 
@@ -64,6 +64,9 @@ $(document).ready(function(){
 							case 7:
 								HTML += "<img src='img/question.png'/>"; // block question pendant la question 
 								break; 
+							case 8:
+								HTML += "<img src='img/portail.png'/>";
+								break;
 						}
 					}
 					HTML += "</div>";
@@ -108,7 +111,11 @@ $(document).ready(function(){
 							emplacementX += 1;
 							deplacement = false;
 							monstre.modules.evenement.Question();
-						}				
+						}
+						else if(LaMap[emplacementY][emplacementX + 1] == 3){
+							deplacement = false;
+							monstre.modules.evenement.leMarchand();
+						}			
 					}		
 				}
 				monstre.modules.map.generation();
@@ -130,7 +137,11 @@ $(document).ready(function(){
 							emplacementX -= 1;
 							deplacement = false;
 							monstre.modules.evenement.Question();
-						}			
+						}		
+						else if(LaMap[emplacementY][emplacementX - 1] == 3){
+							deplacement = false;
+							monstre.modules.evenement.leMarchand();
+						}		
 					}
 				}
 				monstre.modules.map.generation();			
@@ -150,6 +161,10 @@ $(document).ready(function(){
 						else if(LaMap[emplacementY + 1][emplacementX] == 4){
 							emplacementY += 1;
 							monstre.modules.evenement.Question();
+						}	
+						else if(LaMap[emplacementY + 1][emplacementX] == 3){
+							deplacement = false;
+							monstre.modules.evenement.leMarchand();
 						}				
 					}
 				}
@@ -172,7 +187,11 @@ $(document).ready(function(){
 							emplacementY -= 1;
 							deplacement = false;
 							monstre.modules.evenement.Question();
-						}		
+						}	
+						else if(LaMap[emplacementY - 1][emplacementX] == 3){
+							deplacement = false;
+							monstre.modules.evenement.leMarchand();
+						}	
 					}
 				}
 				monstre.modules.map.generation();
@@ -182,21 +201,81 @@ $(document).ready(function(){
 
 	monstre.modules.evenement = (function(){
 		return{
+			init(){
+				$(".finCombat").on('click',monstre.modules.evenement.finCombat);
+				$(".reponseQuestion").on('click',monstre.modules.evenement.finQuestion);
+				$(".quitter").on('click',monstre.modules.evenement.finMarchand);
+			},
+
+			finCombat(){
+				$(".combat").html("");
+				deplacement = true;
+				if(LaMap[emplacementY + 1][emplacementX] == 6){
+					LaMap[emplacementY + 1][emplacementX] = 0;
+				}
+				else if(LaMap[emplacementY - 1][emplacementX] == 6){
+					LaMap[emplacementY - 1][emplacementX] = 0;
+				}
+				else if(LaMap[emplacementY][emplacementX + 1] == 6){
+					LaMap[emplacementY][emplacementX + 1] = 0;
+				}
+				else if(LaMap[emplacementY][emplacementX - 1] == 6){
+					LaMap[emplacementY][emplacementX - 1] = 0;
+				}
+				monstre.modules.map.generation();
+			},
+
+			finQuestion(){
+				$(".question").html("");
+				deplacement = true;
+				if(LaMap[emplacementY + 1][emplacementX] == 7){
+					LaMap[emplacementY + 1][emplacementX] = 0;
+				}
+				else if(LaMap[emplacementY - 1][emplacementX] == 7){
+					LaMap[emplacementY - 1][emplacementX] = 0;
+				}
+				else if(LaMap[emplacementY][emplacementX + 1] == 7){
+					LaMap[emplacementY][emplacementX + 1] = 0;
+				}
+				else if(LaMap[emplacementY][emplacementX - 1] == 7){
+					LaMap[emplacementY][emplacementX - 1] = 0;
+				}
+				monstre.modules.map.generation();
+			},
+
+			finMarchand(){
+				$(".marchand").html("");
+				deplacement = true;
+
+			},
+
 			Monstre(){
 				let HTML = "<img class='fight' src='img/perso.png'/>";
 				HTML += "<textarea rows='4' cols='70'></textarea>";
 				HTML += "<img class='fight' src='img/ennemi.png'/>";
+				HTML += "<input class='finCombat' type='button' value='terminer le combat'>";
 				LaMap[emplacementY][emplacementX] = 6;
 				$("div.combat").html(HTML);
 				monstre.modules.map.generation();
+				monstre.modules.evenement.init();
 			},
 
 			Question(){
 				let HTML = "<p>combien font 3 + 3 ?</p>";
 				HTML += "<input type='text'/>";
+				HTML += "<input class='reponseQuestion' type='button' value='valider la réponse'>";
 				LaMap[emplacementY][emplacementX] = 7;
 				$("div.question").html(HTML);
 				monstre.modules.map.generation();
+				monstre.modules.evenement.init();
+			},
+
+			leMarchand(){
+				let HTML = "<p> Voici ce que je vous propose :";
+				HTML += "<table border='1'><tr><td>couteau de chasse</td><td>hache</td><td>arc</td></tr></table>";
+				HTML += "<input type='button' class='quitter' value='quitter le magasin'/>";
+				$("div.marchand").html(HTML);
+				monstre.modules.evenement.init();
 			}
 		}
 	})();
@@ -214,5 +293,6 @@ $(document).ready(function(){
 	monstre.modules.map.generation();
 	monstre.modules.stats.init();
 	monstre.modules.deplacement.init();
+	
 });
 
