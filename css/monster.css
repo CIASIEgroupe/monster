@@ -118,3 +118,13 @@ img.stat{
     text-align: center;
     font-size: 22px;
 }
+
+#CombatPerso{
+    width: 80px;
+    display: inline-block;
+}
+
+#CombatMonstre{
+    width: 80px;
+    display: inline-block;
+}
