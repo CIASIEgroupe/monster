@@ -5,7 +5,18 @@ $(document).ready(function(){
 
 		}
 	};
-	//var Personnage = 1
+	var items = [["épée émoussée", 5, "arme1.png", 5, 3],
+				["épée en fer", 10, "arme2.png", 10, 6],
+	 			["épée du roi", 15, "arme3.png", 15, 9],
+	  			["katana", 20, "arme4.png", 20, 12],
+	    		["excalibur", 25, "arme5.png", 25, 15],
+	    		["tenue de vagabond", 5, "armure1.png", 5, 3],
+	      		["tenue d'écuyer", 10, "armure2.png", 10, 6],
+	       		["armure en cuir", 15, "armure3.png", 15, 9],
+	       		["côte de mailles", 20, "armure4.png", 20, 12],
+	        	["armure du chevalier", 25, "armure5.png", 25, 15]];
+
+	var idMarchand = 0;
 	var imagePerso = "perso1";
 	var EnemiLife = [30,1];
 	var deplacement = true;
@@ -106,12 +117,12 @@ $(document).ready(function(){
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,1,1,1,1,1,1,1,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
-				     [1,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
+				     [1,0,0,0,0,0,0,0,0,0,0,"30",0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,"85"],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
-				     [1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
+				     [1,0,"30",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
 				     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,"87",1,1,1,1]],
 
@@ -219,7 +230,7 @@ $(document).ready(function(){
 			},
 
 			getAll(){
-				return ({life : life, money : money, atk : atk, xp : xp,lvl : lvl,pvMax : pvMax});
+				return ({life : life, money : money, atk : atk, xp : xp,lvl : lvl,pvMax : pvMax,inventaire : inventaire});
 			},
 
 			setAll(param,valeur){
@@ -258,25 +269,21 @@ $(document).ready(function(){
 					xp : 0,
 					lvl : 1,
 					pvMax : 20,
-					inventaire : {},
+					inv : [],
 				});		
 			},
 
 			displayStatuts(life,money,atk,lvl,pvMax){
-				/*let lvl = 1;
-				let xpLvl = 10;
-				while(xp - xpLvl > 0){
-					lvl++;
-					xp = xp - xpLvl;
-					xpLvl = Math.round(xpLvl * 1.2);
-				}*/
-				console.log(pvMax);
 				let HTML = "<img class='stat' src='img/"+imagePerso+".png'/><li id='lvl'>lvl : "+lvl+"</li><li id='life'>life : "+life+" / "+pvMax+"</li><li id='money'>money : "+money+"</li><li id='atk'>atk : "+atk+"</li>";
 				$(".stat").html(HTML);
 			},
 
-			displayInventaire(invetaire){
-				
+			displayInventaire(inventaire){
+				let HTML = "";
+				for(let i = 0; i<inventaire.length;i++){
+					HTML += "<img src='img/"+items[i][2]+"' >";
+				}
+				$(".inventaire").html(HTML);
 			}
 		}
 	})();
@@ -297,9 +304,6 @@ $(document).ready(function(){
 								break;
 							case 2:
 								HTML += "<img src='img/event.PNG' />"; // block evenement monstre
-								break;
-							case 3:
-								HTML += "<img src='img/marchand.png'/>"; // marchant
 								break;
 							case 4:
 								HTML += "<img src='img/event.PNG' />"; // block evenement question
@@ -327,8 +331,13 @@ $(document).ready(function(){
 								// premier chiffre = case
 								// deuxieme chiffre = map suivante
 								// <img id='mapSuivante' src='img/portail.png'/>
-
-								HTML += "<img src='img/portail.png'/>";
+								if(LesMap[mapActuel][i][j][0] == 3){
+									HTML += "<img src='img/marchand.png'/>";
+									idMarchand = parseInt(LesMap[mapActuel][i][j][1]);
+								}
+								else{
+									HTML += "<img src='img/portail.png'/>";
+								}					
 						}
 					}
 					HTML += "</div>";
@@ -374,7 +383,7 @@ $(document).ready(function(){
 							deplacement = false;
 							monstre.modules.evenement.Question();
 						}
-						else if(LesMap[mapActuel][emplacementY][emplacementX + 1] == 3){
+						else if(LesMap[mapActuel][emplacementY][emplacementX + 1][0] == 3){
 							deplacement = false;
 							monstre.modules.evenement.leMarchand();
 						}		
@@ -405,7 +414,7 @@ $(document).ready(function(){
 							deplacement = false;
 							monstre.modules.evenement.Question();
 						}		
-						else if(LesMap[mapActuel][emplacementY][emplacementX - 1] == 3){
+						else if(LesMap[mapActuel][emplacementY][emplacementX - 1][0] == 3){
 							deplacement = false;
 							monstre.modules.evenement.leMarchand();
 						}	
@@ -434,7 +443,7 @@ $(document).ready(function(){
 							emplacementY += 1;
 							monstre.modules.evenement.Question();
 						}	
-						else if(LesMap[mapActuel][emplacementY + 1][emplacementX] == 3){
+						else if(LesMap[mapActuel][emplacementY + 1][emplacementX][0] == 3){
 							deplacement = false;
 							monstre.modules.evenement.leMarchand();
 						}	
@@ -465,7 +474,7 @@ $(document).ready(function(){
 							deplacement = false;
 							monstre.modules.evenement.Question();
 						}	
-						else if(LesMap[mapActuel][emplacementY - 1][emplacementX] == 3){
+						else if(LesMap[mapActuel][emplacementY - 1][emplacementX][0] == 3){
 							deplacement = false;
 							monstre.modules.evenement.leMarchand();
 						}	
@@ -528,7 +537,9 @@ $(document).ready(function(){
 			finMarchand(){
 				$(".marchand").html("");
 				deplacement = true;
-
+				let stat = monstre.modules.actions.getAll();
+				console.log(stat.inventaire);
+				monstre.modules.app.displayInventaire(stat.inventaire);
 			},
 
 			Monstre(){
@@ -587,9 +598,9 @@ $(document).ready(function(){
 
 				let HTML = "<div id='CombatPerso'><img class='fight' src='img/"+imagePerso+".png'/>";				
 				HTML += "<div id='statPerso'><p> life : " + stat.life + "</p><p> atk : " + stat.atk + "</p></div></div>";
-				HTML += "<textarea rows='10' cols='70'></textarea>";
 				HTML += "<div id='CombatMonstre'><img class='fight' src='img/ennemi.png'/>";
-				HTML += "<div id='statMonstre'><p> life : " + EnemiLife[0] + "</p><p> atk : " + EnemiLife[1] + "</p></div></div>";
+				HTML += "<div id='statMonstre'><p> life : " + EnemiLife[0] + "</p><p> atk : " + EnemiLife[1] + "</p></div>";
+				HTML += "<textarea rows='10' cols='70'></textarea></div>";
 
 				$('#statPerso').html("<p> life : " + stat.life + "</p><p> atk : " + stat.atk + "</p>");
 				$("#statMonstre").html("<p> life : " + EnemiLife[0] + "</p><p> atk : " + EnemiLife[1] + "</p>");
@@ -613,10 +624,41 @@ $(document).ready(function(){
 
 			leMarchand(){
 				let HTML = "<p> Voici ce que je vous propose :";
-				HTML += "<table border='1'><tr><td>couteau de chasse</td><td>hache</td><td>arc</td></tr></table>";
+				HTML += "<table border='1'>";
+				for(let i = 0; i < 3; i++){
+					HTML += "<tr><td><p>"+items[(idMarchand + i)][0]+"</p><img class='inventaire' src='img/"+items[(idMarchand + i)][2]+"'/></td>";
+					HTML += "<td>+"+items[(idMarchand + i)][1]+" atk</td>";
+					HTML += "<td> "+items[(idMarchand + i)][3]+" </td><td><input type='button' id='"+i+"' class='acheter' value='acheter'/></tr>";
+				}
+				for(let j = 0; j < 3; j++){
+					HTML += "<tr><td><p>"+items[(idMarchand + j + 5)][0]+"</p><img class='inventaire' src='img/"+items[(idMarchand + j + 5)][2]+"'/></td>";
+					HTML += "<td>+"+items[(idMarchand + j + 5)][1]+" hp max</td>";
+					HTML += "<td> "+items[(idMarchand + j + 5)][3]+" </td><td><input type='button' id='"+j+"' class='acheter' value='acheter'/></tr>";
+				}
+				HTML += "</table>";
 				HTML += "<input type='button' class='quitter' value='quitter le magasin'/>";
 				$("div.marchand").html(HTML);
+				$(".acheter").on("click",monstre.modules.evenement.ajoutInventaire);
 				monstre.modules.evenement.init();
+			},
+
+			ajoutInventaire(){
+				let stat = monstre.modules.actions.getAll();
+				if(stat.money - items[$(this).attr("id")][1] >= 0){
+					if(stat.inventaire.length + 1 <= 6){
+						stat.inventaire.push($(this).attr("id"));
+						monstre.modules.app.displayInventaire(stat.inventaire);
+						monstre.modules.actions.setAll("money",(stat.money - items[$(this).attr("id")][1]));
+						monstre.modules.app.displayStatuts(stat.life,stat.money - items[$(this).attr("id")][1],stat.atk,stat.lvl,stat.pvMax);
+					}
+					else{
+						alert('vous ne pouvez pas acheter plus de 6 armes et/ou armures');
+					}
+				}
+				else{
+					alert("vous n'avez pas assez d'argent");
+				}
+				
 			},
 
 			teleportation(){
