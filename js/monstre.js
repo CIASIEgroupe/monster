@@ -6,7 +6,8 @@ $(document).ready(function(){
 		}
 	};
 	//var Personnage = 1
-	var EnemiLife = [20,5];
+	var imagePerso = "perso1";
+	var EnemiLife = [30,1];
 	var deplacement = true;
 	var mapActuel = 4;
 	var LesMap =	[[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],        
@@ -105,7 +106,7 @@ $(document).ready(function(){
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,1,1,1,1,1,1,1,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
-				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
+				     [1,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,"85"],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
@@ -203,29 +204,45 @@ $(document).ready(function(){
 
 
 	monstre.modules.actions = (function(){
-		let life, money, atk;
+		let life, money, atk, xp, lvl, pvMax, inventaire;
 
 		return{
 			init(valeur){
 				life = valeur.life;
 				money = valeur.money;
 				atk = valeur.atk;
-				monstre.modules.app.displayStatuts(life,money,atk);
+				xp = valeur.xp;
+				lvl = valeur.lvl;
+				pvMax = valeur.pvMax;
+				inventaire = valeur.inv;
+				monstre.modules.app.displayStatuts(life,money,atk,lvl,pvMax);
 			},
 
 			getAll(){
-				return ({life : life, money : money, atk : atk});
+				return ({life : life, money : money, atk : atk, xp : xp,lvl : lvl,pvMax : pvMax});
 			},
 
 			setAll(param,valeur){
-				if(param = "life"){
+				if(param == "life"){
 					life = valeur;
 				}
-				else if(param = "atk"){
+				else if(param == "atk"){
 					atk = valeur;
 				}
-				else if(param = "money"){
+				else if(param == "money"){
 					money = valeur;
+				}
+				else if(param == "xp"){
+					xp = valeur;
+				}
+				else if(param == "lvl"){
+					lvl = valeur;
+				}
+				else if(param == "pvMax"){
+					pvMax = valeur;
+				}
+				else if(param == "inventaire"){
+					inventaire = valeur;
 				}
 			}
 		}
@@ -237,13 +254,29 @@ $(document).ready(function(){
 				monstre.modules.actions.init({
 					life : 20,
 					money : 20,
-					atk : 12
+					atk : 12,
+					xp : 0,
+					lvl : 1,
+					pvMax : 20,
+					inventaire : {},
 				});		
 			},
 
-			displayStatuts(life,money,atk){
-				let HTML = "<img class='stat' src='img/perso1.png'/><li id='life'>life : "+life+"</li><li id='money'>money : "+money+"</li><li id='atk'>atk : "+atk+"</li>";
+			displayStatuts(life,money,atk,lvl,pvMax){
+				/*let lvl = 1;
+				let xpLvl = 10;
+				while(xp - xpLvl > 0){
+					lvl++;
+					xp = xp - xpLvl;
+					xpLvl = Math.round(xpLvl * 1.2);
+				}*/
+				console.log(pvMax);
+				let HTML = "<img class='stat' src='img/"+imagePerso+".png'/><li id='lvl'>lvl : "+lvl+"</li><li id='life'>life : "+life+" / "+pvMax+"</li><li id='money'>money : "+money+"</li><li id='atk'>atk : "+atk+"</li>";
 				$(".stat").html(HTML);
+			},
+
+			displayInventaire(invetaire){
+				
 			}
 		}
 	})();
@@ -272,7 +305,14 @@ $(document).ready(function(){
 								HTML += "<img src='img/event.PNG' />"; // block evenement question
 								break;
 							case 5:
-								HTML += "<img src='img/perso1.png'/>"; // block personnage
+								let stat = monstre.modules.actions.getAll();
+								if(stat.lvl >= 5){
+									imagePerso = "perso2";
+								}
+								if(stat.lvl >= 10){
+									imagePerso = "perso3";
+								}
+								HTML += "<img src='img/"+imagePerso+".png'/>"; // block personnage
 								emplacementX = j;
 								emplacementY = i;
 								break;
@@ -492,45 +532,72 @@ $(document).ready(function(){
 			},
 
 			Monstre(){
-				let HTML = "<div id='CombatPerso'><img class='fight' src='img/perso1.png'/>";
-				let stat = monstre.modules.actions.getAll();
-				HTML += "<div id='statPerso'><p> life : " + stat.life + "</p><p> atk : " + stat.atk + "</p></div></div>";
-				HTML += "<textarea rows='10' cols='70'></textarea>";
-				HTML += "<div id='CombatMonstre'><img class='fight' src='img/ennemi.png'/>";
-				HTML += "<div id='statMonstre'><p> life : " + EnemiLife[0] + "</p><p> atk : " + EnemiLife[1] + "</p></div></div>";
-				$("div.combat").html(HTML);
+				deplacement = false;
+				let stat = monstre.modules.actions.getAll();			
+
 				LesMap[mapActuel][emplacementY][emplacementX] = 6;
 				monstre.modules.map.generation();
-				HTML = "";
-				while(EnemiLife[0] > 0 && stat.life > 0){
+				let HTMLFinCombat = "";
 
+				while(EnemiLife[0] > 0 && stat.life > 0){
+					console.log("enemie vivant : " + EnemiLife[0] + " hp (1)");
 					if(EnemiLife[0] - stat.atk < 0){
 						EnemiLife[0] = 0;
 					}
 					else{
 						EnemiLife[0] -= stat.atk;
 					}
-					$("#statMonstre").html("<p> life : " + EnemiLife[0] + "</p><p> atk : " + EnemiLife[1] + "</p>");
-
 
 					if(EnemiLife[0] > 0){
-						monstre.modules.actions.setAll("life",stat.life - EnemiLife[1]);
-						$('#statPerso').html("<p> life : " + (stat.life - EnemiLife[1]) + "</p><p> atk : " + stat.atk + "</p>");
+						console.log("enemie vivant : " + EnemiLife[0] + " hp (2)");
+						monstre.modules.actions.setAll("life",stat.life - EnemiLife[1]);						
 					}
 					else{
-						HTML += "<input class='finCombat' type='button' value='terminer le combat'>";
+						HTMLFinCombat += "<input class='finCombat' type='button' value='terminer le combat'>";
 					}
 
-					stat = monstre.modules.actions.getAll();
-
-					monstre.modules.app.displayStatuts(stat.life,stat.money,stat.atk);
+					stat = monstre.modules.actions.getAll();					
 
 				}
-				
 
-				$("div.combat").html($("div.combat").html() + HTML);
+				if(stat.life > 0){
+					monstre.modules.actions.setAll("money",(stat.money + 5));
+					let cpt = 1;
+					let needXp = 10;
+					while(cpt != stat.lvl){
+						needXp = Math.round(needXp * 1.2);
+						cpt++;
+					}
+
+					if((stat.xp + 5) >= needXp){
+						monstre.modules.actions.setAll("xp",(stat.xp + 5 - needXp));
+						monstre.modules.actions.setAll("atk",(stat.atk + 1));
+						monstre.modules.actions.setAll("lvl",(stat.lvl + 1));
+						monstre.modules.actions.setAll("pvMax",(stat.pvMax + 2));
+						monstre.modules.actions.setAll("life",(stat.pvMax + 2));
+					}
+					else{
+						monstre.modules.actions.setAll("xp",(stat.xp + 5));
+					}					
+				}
+
+				stat = monstre.modules.actions.getAll();
+
+				monstre.modules.map.generation();
+
+				let HTML = "<div id='CombatPerso'><img class='fight' src='img/"+imagePerso+".png'/>";				
+				HTML += "<div id='statPerso'><p> life : " + stat.life + "</p><p> atk : " + stat.atk + "</p></div></div>";
+				HTML += "<textarea rows='10' cols='70'></textarea>";
+				HTML += "<div id='CombatMonstre'><img class='fight' src='img/ennemi.png'/>";
+				HTML += "<div id='statMonstre'><p> life : " + EnemiLife[0] + "</p><p> atk : " + EnemiLife[1] + "</p></div></div>";
+
+				$('#statPerso').html("<p> life : " + stat.life + "</p><p> atk : " + stat.atk + "</p>");
+				$("#statMonstre").html("<p> life : " + EnemiLife[0] + "</p><p> atk : " + EnemiLife[1] + "</p>");
+				$("div.combat").html(HTML + HTMLFinCombat);
+
 				monstre.modules.evenement.init();
-				EnemiLife[0] = 20;
+				EnemiLife[0] = 30;
+				monstre.modules.app.displayStatuts(stat.life,stat.money,stat.atk,stat.lvl,stat.pvMax);
 
 			},
 
