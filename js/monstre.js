@@ -298,7 +298,7 @@ $(document).ready(function(){
 				let HTML = "";
 				for(let i = 0; i<inventaire.length;i++){
 					HTML += "<div id='"+inventaire[i]+"'>";
-					HTML += "<img src='img/"+items[parseInt(inventaire[i]) + i][2]+"' >";
+					HTML += "<img src='img/"+items[parseInt(inventaire[i])][2]+"' >";
 					HTML += "<input type='button' class='addEquipement' value='equiper' /><br/>";
 					HTML += "</div>";
 				}
@@ -309,7 +309,6 @@ $(document).ready(function(){
 
 			displayEquipement(equipement){
 				let HTML = "";
-				console.log(equipement);
 				for(let i = 0; i< 2;i++){
 					if(equipement[i] != ""){		
 						HTML += "<img src='img/"+items[parseInt(equipement[i])][2]+"'>";
@@ -569,7 +568,8 @@ $(document).ready(function(){
 			},
 
 			finMarchand(){
-				$(".marchand").html("");
+				$(".achat").html("");
+				$(".vente").html("");
 				deplacement = true;
 				let stat = monstre.modules.actions.getAll();
 				monstre.modules.app.displayInventaire(stat.inventaire);
@@ -655,6 +655,8 @@ $(document).ready(function(){
 
 			leMarchand(){
 				let HTML = "<p> Voici ce que je vous propose :";
+
+
 				HTML += "<table border='1'>";
 				for(let i = 0; i < 3; i++){
 					HTML += "<tr><td><p>"+items[(idMarchand + i)][0]+"</p><img class='inventaire' src='img/"+items[(idMarchand + i)][2]+"'/></td>";
@@ -668,9 +670,34 @@ $(document).ready(function(){
 				}
 				HTML += "</table>";
 				HTML += "<input type='button' class='quitter' value='quitter le magasin'/>";
-				$("div.marchand").html(HTML);
+				$(".achat").html(HTML);
+
+
+				monstre.modules.evenement.init();
+				
 				$(".acheter").on("click",monstre.modules.evenement.ajoutInventaire);
 				monstre.modules.evenement.init();
+
+				monstre.modules.evenement.AffichageVente();
+			},
+
+			AffichageVente(){
+				let stat = monstre.modules.actions.getAll();
+
+				let HTML = "<table border='1'>";
+				for(let i = 0; i < stat.inventaire.length; i++){
+					if(stat.equipement[0] != stat.inventaire[i] && stat.equipement[1] != stat.inventaire[i]){
+						HTML += "<tr><td><img src='img/" + items[stat.inventaire[i]][2] + "' /></td>";
+						HTML += "<td><input type='button' class='vendre' value='vendre' id='"+stat.inventaire[i]+"' /></td>";
+						HTML += "<td>"+items[stat.inventaire[i]][4]+"</td></tr>";
+					}				
+				}
+
+				HTML += "</table>";
+
+				$(".vente").html(HTML);
+				$(".vendre").on("click",monstre.modules.evenement.supprimerInventaire);
+
 			},
 
 			ajoutInventaire(){
@@ -690,7 +717,31 @@ $(document).ready(function(){
 				else{
 					alert("vous n'avez pas assez d'argent");
 				}
+
+				monstre.modules.evenement.AffichageVente();
 				
+			},
+
+			supprimerInventaire(){
+				let stat = monstre.modules.actions.getAll();
+				let pos = 0;
+				for(let i = 0; i < stat.inventaire.length; i++){
+					if(stat.inventaire[i] == $(this).attr('id')){
+						pos = i;
+					}
+				}
+
+				stat.money += items[stat.inventaire[pos]][4];
+				stat.inventaire.splice(pos,pos + 1);
+				
+
+				monstre.modules.actions.setAll("money",stat.money);
+				monstre.modules.actions.setAll("inventaire",stat.inventaire);
+
+				monstre.modules.evenement.AffichageVente();
+				monstre.modules.app.displayStatuts(stat.life,stat.money,stat.atk,stat.lvl,stat.pvMax);
+				monstre.modules.app.displayInventaire(stat.inventaire);
+
 			},
 
 			ajoutEquipement(){
@@ -722,6 +773,10 @@ $(document).ready(function(){
 				monstre.modules.actions.setAll("equipement",stat.equipement);
 				monstre.modules.app.displayEquipement(stat.equipement);
 				monstre.modules.app.displayStatuts(stat.life,stat.money,stat.atk,stat.lvl,stat.pvMax);
+
+				if($('.achat').html() != ""){
+					monstre.modules.evenement.AffichageVente();
+				}
 			},
 
 			teleportation(){
