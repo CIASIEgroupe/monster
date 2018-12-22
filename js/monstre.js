@@ -16,6 +16,17 @@ $(document).ready(function(){
 	       		["côte de mailles", 20, "armure4.png", 20, 12],
 	        	["armure du chevalier", 25, "armure5.png", 25, 15]];
 
+	let Questions = [
+          ["La Grande Muraille de Chine est visible de la lune.", "false"],
+          ["Le site Web de diffusion en continu de vidéos YouTube a été acheté dans son intégralité par Face	book pour 1,65 milliard de dollars US en stock.", "false"],
+          ["Le français est une langue officielle au Canada.", "true"],
+          ["La vapeur produite par les cigarettes électroniques est en réalité de l'eau.", "false"],
+          ["Le Nutella est produit par la société allemande Ferrero.", "false"],
+          ["Il y a 86400 secondes dans une journée.", "true"],
+          ["Les taureaux sont attirés par la couleur rouge.", "false"],
+          ["Vous êtes autorisé à vendre votre âme sur eBay.", "false"],
+          ["En 2010, Twitter et la Bibliothèque du Congrès des États-Unis se sont associés pour archiver chaque tweet de citoyens américains.", "true"]];
+
 	var idMarchand = 0;
 	var imagePerso = "perso1";
 	var EnemiLife = [30,1];
@@ -40,7 +51,7 @@ $(document).ready(function(){
 					 [1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,2,0,1],
 					 [1,3,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,4,0,0,0,1,0,0,0,0,1],
 					 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1],
-					 [1,1,"83",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,"83",1,1]],
+					 [1,1,"83",1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,"83",1,1,1]],
 
 					[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1], 
 					 [1,0,3,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -117,12 +128,12 @@ $(document).ready(function(){
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,1,1,1,1,1,1,1,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
-				     [1,0,0,0,0,0,0,0,0,0,0,"30",0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
+				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,"30",0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,"85"],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
-				     [1,0,"30",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
+				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
 				     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,"87",1,1,1,1]],
 
@@ -215,7 +226,7 @@ $(document).ready(function(){
 
 
 	monstre.modules.actions = (function(){
-		let life, money, atk, xp, lvl, pvMax, inventaire;
+		let life, money, atk, xp, lvl, pvMax, inventaire, equipement;
 
 		return{
 			init(valeur){
@@ -226,11 +237,12 @@ $(document).ready(function(){
 				lvl = valeur.lvl;
 				pvMax = valeur.pvMax;
 				inventaire = valeur.inv;
+				equipement = valeur.equipement
 				monstre.modules.app.displayStatuts(life,money,atk,lvl,pvMax);
 			},
 
 			getAll(){
-				return ({life : life, money : money, atk : atk, xp : xp,lvl : lvl,pvMax : pvMax,inventaire : inventaire});
+				return ({life : life, money : money, atk : atk, xp : xp,lvl : lvl,pvMax : pvMax,inventaire : inventaire, equipement : equipement});
 			},
 
 			setAll(param,valeur){
@@ -255,6 +267,9 @@ $(document).ready(function(){
 				else if(param == "inventaire"){
 					inventaire = valeur;
 				}
+				else if(param == "equipement"){
+					equipement = valeur;
+				}
 			}
 		}
 	})();
@@ -270,6 +285,7 @@ $(document).ready(function(){
 					lvl : 1,
 					pvMax : 20,
 					inv : [],
+					equipement : ["",""],
 				});		
 			},
 
@@ -281,9 +297,25 @@ $(document).ready(function(){
 			displayInventaire(inventaire){
 				let HTML = "";
 				for(let i = 0; i<inventaire.length;i++){
-					HTML += "<img src='img/"+items[i][2]+"' >";
+					HTML += "<div id='"+inventaire[i]+"'>";
+					HTML += "<img src='img/"+items[parseInt(inventaire[i]) + i][2]+"' >";
+					HTML += "<input type='button' class='addEquipement' value='equiper' /><br/>";
+					HTML += "</div>";
 				}
 				$(".inventaire").html(HTML);
+				$('.addEquipement').on('click',monstre.modules.evenement.ajoutEquipement);
+
+			},
+
+			displayEquipement(equipement){
+				let HTML = "";
+				console.log(equipement);
+				for(let i = 0; i< 2;i++){
+					if(equipement[i] != ""){		
+						HTML += "<img src='img/"+items[parseInt(equipement[i])][2]+"'>";
+					}			
+				}
+				$(".equiper").html(HTML);
 			}
 		}
 	})();
@@ -295,6 +327,7 @@ $(document).ready(function(){
 				for (let i = 0; i < 20; i++){
 					HTML += "<div>";
 					for (let j = 0; j < 30; j++){
+						//HTML += "<div classe='laMap' id='"+i+"-"+j+"'>";
 						switch(LesMap[mapActuel][i][j]){
 							case 0:
 								HTML += "<img src='img/sol.png' />"; //block sol
@@ -339,6 +372,7 @@ $(document).ready(function(){
 									HTML += "<img src='img/portail.png'/>";
 								}					
 						}
+						//HTML += "</div>";
 					}
 					HTML += "</div>";
 				}
@@ -351,16 +385,16 @@ $(document).ready(function(){
 		return{
 			init(){
 				$(document).keydown(function(event){
-					if(event.which == 39){
+					if(event.which == 68){
 						monstre.modules.deplacement.droit();
 					}
-					if(event.which == 37){
+					if(event.which == 81){
 						monstre.modules.deplacement.gauche();
 					}
-					if(event.which == 40){
+					if(event.which == 83){
 						monstre.modules.deplacement.bas();
 					}
-					if(event.which == 38){
+					if(event.which == 90){
 						monstre.modules.deplacement.haut();
 					}
 				});
@@ -538,7 +572,6 @@ $(document).ready(function(){
 				$(".marchand").html("");
 				deplacement = true;
 				let stat = monstre.modules.actions.getAll();
-				console.log(stat.inventaire);
 				monstre.modules.app.displayInventaire(stat.inventaire);
 			},
 
@@ -551,7 +584,6 @@ $(document).ready(function(){
 				let HTMLFinCombat = "";
 
 				while(EnemiLife[0] > 0 && stat.life > 0){
-					console.log("enemie vivant : " + EnemiLife[0] + " hp (1)");
 					if(EnemiLife[0] - stat.atk < 0){
 						EnemiLife[0] = 0;
 					}
@@ -560,7 +592,6 @@ $(document).ready(function(){
 					}
 
 					if(EnemiLife[0] > 0){
-						console.log("enemie vivant : " + EnemiLife[0] + " hp (2)");
 						monstre.modules.actions.setAll("life",stat.life - EnemiLife[1]);						
 					}
 					else{
@@ -633,7 +664,7 @@ $(document).ready(function(){
 				for(let j = 0; j < 3; j++){
 					HTML += "<tr><td><p>"+items[(idMarchand + j + 5)][0]+"</p><img class='inventaire' src='img/"+items[(idMarchand + j + 5)][2]+"'/></td>";
 					HTML += "<td>+"+items[(idMarchand + j + 5)][1]+" hp max</td>";
-					HTML += "<td> "+items[(idMarchand + j + 5)][3]+" </td><td><input type='button' id='"+j+"' class='acheter' value='acheter'/></tr>";
+					HTML += "<td> "+items[(idMarchand + j + 5)][3]+" </td><td><input type='button' id='"+(j + 5)+"' class='acheter' value='acheter'/></tr>";
 				}
 				HTML += "</table>";
 				HTML += "<input type='button' class='quitter' value='quitter le magasin'/>";
@@ -647,6 +678,7 @@ $(document).ready(function(){
 				if(stat.money - items[$(this).attr("id")][1] >= 0){
 					if(stat.inventaire.length + 1 <= 6){
 						stat.inventaire.push($(this).attr("id"));
+						
 						monstre.modules.app.displayInventaire(stat.inventaire);
 						monstre.modules.actions.setAll("money",(stat.money - items[$(this).attr("id")][1]));
 						monstre.modules.app.displayStatuts(stat.life,stat.money - items[$(this).attr("id")][1],stat.atk,stat.lvl,stat.pvMax);
@@ -659,6 +691,37 @@ $(document).ready(function(){
 					alert("vous n'avez pas assez d'argent");
 				}
 				
+			},
+
+			ajoutEquipement(){
+				let stat = monstre.modules.actions.getAll();
+				if($(this).parent().attr('id') < 5){
+					if(stat.equipement[0] != ""){
+						stat.atk = stat.atk - items[stat.equipement[0]][1] + items[$(this).parent().attr('id')][1];
+					}
+					else{
+						stat.atk += items[$(this).parent().attr('id')][1];
+					}
+					stat.equipement[0] = $(this).parent().attr('id');
+					monstre.modules.actions.setAll("atk",stat.atk);
+				}
+				else{
+					if(stat.equipement[1] != ""){
+						stat.life = stat.life - items[equipement[1]][1] + items[$(this).parent().attr('id')][1];
+						stat.pvMax = stat.pvMax - items[equipement[1]][1] + items[$(this).parent().attr('id')][1];
+					}
+					else{
+						stat.life += items[$(this).parent().attr('id')][1];
+						stat.pvMax += items[$(this).parent().attr('id')][1];
+					}
+					stat.equipement[1] = $(this).parent().attr('id');
+
+					monstre.modules.actions.setAll("life",stat.life);
+					monstre.modules.actions.setAll("pvMax",stat.pvMax);
+				}
+				monstre.modules.actions.setAll("equipement",stat.equipement);
+				monstre.modules.app.displayEquipement(stat.equipement);
+				monstre.modules.app.displayStatuts(stat.life,stat.money,stat.atk,stat.lvl,stat.pvMax);
 			},
 
 			teleportation(){
