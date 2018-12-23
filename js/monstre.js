@@ -17,15 +17,15 @@ $(document).ready(function(){
 	        	["armure du chevalier", 25, "armure5.png", 25, 15]];
 
 	let Questions = [
-          ["La Grande Muraille de Chine est visible de la lune.", "false"],
-          ["Le site Web de diffusion en continu de vidéos YouTube a été acheté dans son intégralité par Face	book pour 1,65 milliard de dollars US en stock.", "false"],
-          ["Le français est une langue officielle au Canada.", "true"],
-          ["La vapeur produite par les cigarettes électroniques est en réalité de l'eau.", "false"],
-          ["Le Nutella est produit par la société allemande Ferrero.", "false"],
-          ["Il y a 86400 secondes dans une journée.", "true"],
-          ["Les taureaux sont attirés par la couleur rouge.", "false"],
-          ["Vous êtes autorisé à vendre votre âme sur eBay.", "false"],
-          ["En 2010, Twitter et la Bibliothèque du Congrès des États-Unis se sont associés pour archiver chaque tweet de citoyens américains.", "true"]];
+          ["La Grande Muraille de Chine est visible de la lune.", "faux"],
+          ["Le site Web de diffusion en continu de vidéos YouTube a été acheté dans son intégralité par Face	book pour 1,65 milliard de dollars US en stock.", "faux"],
+          ["Le français est une langue officielle au Canada.", "vraie"],
+          ["La vapeur produite par les cigarettes électroniques est en réalité de l'eau.", "faux"],
+          ["Le Nutella est produit par la société allemande Ferrero.", "faux"],
+          ["Il y a 86400 secondes dans une journée.", "vraie"],
+          ["Les taureaux sont attirés par la couleur rouge.", "faux"],
+          ["Vous êtes autorisé à vendre votre âme sur eBay.", "faux"],
+          ["En 2010, Twitter et la Bibliothèque du Congrès des États-Unis se sont associés pour archiver chaque tweet de citoyens américains.", "vraie"]];
 
 	var idMarchand = 0;
 	var imagePerso = "perso1";
@@ -104,14 +104,14 @@ $(document).ready(function(){
 					 [1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
 					 [1,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,"84"],
 					 [1,0,0,0,0,1,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,1,0,0,0,0,0,1],
-					 [1,0,0,0,0,0,0,0,0,0,0,0,0,1,4,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
+					 [1,0,0,0,0,0,0,0,0,0,0,0,0,1,"41",0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
 				     [1,0,0,2,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
 					 [1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,2,0,0,1],
 					 [1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
 					 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1],
 					 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 					 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-					 [1,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+					 [1,0,0,"31",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 					 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 					 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 					 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,"86",1,1,1,1,1,1,1,1,1,1,1]],
@@ -120,7 +120,7 @@ $(document).ready(function(){
 			         [1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 			         [1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 				     [1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-				     [1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,1],
+				     [1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"40",0,0,0,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 				     ["83",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -337,9 +337,6 @@ $(document).ready(function(){
 							case 2:
 								HTML += "<img src='img/event.PNG' />"; // block evenement monstre
 								break;
-							case 4:
-								HTML += "<img src='img/event.PNG' />"; // block evenement question
-								break;
 							case 5:
 								let stat = monstre.modules.actions.getAll();
 								if(stat.lvl >= 5){
@@ -367,9 +364,12 @@ $(document).ready(function(){
 									HTML += "<img src='img/marchand.png'/>";
 									idMarchand = parseInt(LesMap[mapActuel][i][j][1]);
 								}
+								else if(LesMap[mapActuel][i][j][0] == 4){
+									HTML += "<img src='img/event.png'/>";
+								}	
 								else{
 									HTML += "<img src='img/portail.png'/>";
-								}					
+								}				
 						}
 						//HTML += "</div>";
 					}
@@ -411,7 +411,7 @@ $(document).ready(function(){
 							deplacement = false;
 							monstre.modules.evenement.Monstre();
 						}	
-						else if(LesMap[mapActuel][emplacementY][emplacementX + 1] == 4){
+						else if(LesMap[mapActuel][emplacementY][emplacementX + 1][0] == 4){
 							emplacementX += 1;
 							deplacement = false;
 							monstre.modules.evenement.Question();
@@ -550,6 +550,22 @@ $(document).ready(function(){
 			},
 
 			finQuestion(){
+
+				if(Questions[$(this).attr("id")][1] == $(this).attr('value')){
+					let stat = monstre.modules.actions.getAll();
+					if(stat.life + 3 <= stat.pvMax){
+						stat.life += 3;
+					}
+					else{
+						stat.life = stat.pvMax;
+					}
+					monstre.modules.actions.setAll("life", stat.life);
+					monstre.modules.app.displayStatuts(stat.life,stat.money,stat.atk,stat.lvl,stat.pvMax);
+				}
+				else{
+					alert("Mauvaise réponse");
+				}
+	
 				$(".question").html("");
 				deplacement = true;
 				if(LesMap[mapActuel][emplacementY + 1][emplacementX] == 7){
@@ -644,13 +660,17 @@ $(document).ready(function(){
 			},
 
 			Question(){
-				let HTML = "<p>combien font 3 + 3 ?</p>";
-				HTML += "<input type='text'/>";
-				HTML += "<input class='reponseQuestion' type='button' value='valider la réponse'>";
-				LesMap[mapActuel][emplacementY][emplacementX] = 7;
+				let laQuestion = Questions[parseInt(LesMap[mapActuel][emplacementY][emplacementX][1])];
+
+				let HTML = laQuestion[0];
+				HTML += "<input class='reponseQuestion' type='button' value='vraie' id='"+LesMap[mapActuel][emplacementY][emplacementX][1]+"'/>";
+				HTML += "<input class='reponseQuestion' type='button' value='faux' id='"+LesMap[mapActuel][emplacementY][emplacementX][1]+"'/>";
+
+				LesMap[mapActuel][emplacementY][emplacementX] = 7;				
 				$("div.question").html(HTML);
-				monstre.modules.map.generation();
+				monstre.modules.map.generation();			
 				monstre.modules.evenement.init();
+
 			},
 
 			leMarchand(){
