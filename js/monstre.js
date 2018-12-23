@@ -288,12 +288,13 @@ $(document).ready(function(){
 			},
 
 			chargerSauvegarde(){
-				// life&money&atk&xp&lvl&pvMax&inv&equipement&
-				// 5&200&12&5&4&25&05&0a
+				// life&money&atk&xp&lvl&pvMax&inv&equipement&mapactuel&x&y
+				// 5&200&12&5&4&25&05&0a&4&15&10
 
 				let save =document.getElementById("sauvegarde").value;
 				save = save.split("&");
-				console.log(save);
+
+				LesMap[4][10][15] = 0;
 
 				let life = parseInt(save[0]);
 				let money = parseInt(save[1]);
@@ -325,6 +326,11 @@ $(document).ready(function(){
 					inv : inv,
 					equipement : equipement,
 				})
+
+				LesMap[4][10][15] = 0;
+
+				mapActuel = save[8]
+				LesMap[mapActuel][save[10]][save[9]] = 5;
 
 				monstre.modules.app.displayEquipement(equipement)
 				monstre.modules.app.displayInventaire(inv)
