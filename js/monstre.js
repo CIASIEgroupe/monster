@@ -277,7 +277,8 @@ $(document).ready(function(){
 	monstre.modules.app = (function(){
 		return{
 			partie(){
-
+				$('.save').html("<input type='button' value='sauvegarder' class='faireSauvegarde' />");
+				$('.faireSauvegarde').on('click', monstre.modules.app.crerSauvegarde);
 				if($(this).attr('id') == "commencer"){
 					monstre.modules.app.start();
 					$('.game').html("");			
@@ -338,6 +339,38 @@ $(document).ready(function(){
 				monstre.modules.deplacement.init();
 
 				$('.game').html("");
+			},
+
+			crerSauvegarde(){
+				// life&money&atk&xp&lvl&pvMax&inv&equipement&mapactuel&x&y
+
+				let stat = monstre.modules.actions.getAll();	
+
+				let save = stat.life + "&" + stat.money + "&" + stat.atk + "&" + stat.xp + "&" + stat.lvl + "&" + stat.pvMax + "&";
+
+				for(let i = 0; i < stat.inventaire.length; i++){
+					save += stat.inventaire[i];
+				}
+
+				save += "&";
+
+				if(stat.equipement[0] == ""){
+					save += "a";
+				}
+				else{
+					save += stat.equipement[0];
+				}
+
+				if(stat.equipement[1] == ""){
+					save += "a";
+				}
+				else{
+					save += stat.equipement[1];
+				}
+
+				save += "&" + mapActuel + "&" + emplacementX + "&" + emplacementY;
+
+				alert("voici votre sauvegarde : " + save );
 			},
 
 			start(){
