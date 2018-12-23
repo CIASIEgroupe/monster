@@ -276,6 +276,64 @@ $(document).ready(function(){
 
 	monstre.modules.app = (function(){
 		return{
+			partie(){
+
+				if($(this).attr('id') == "commencer"){
+					monstre.modules.app.start();
+					$('.game').html("");			
+				}
+				else{
+					monstre.modules.app.chargerSauvegarde();
+				}			
+			},
+
+			chargerSauvegarde(){
+				// life&money&atk&xp&lvl&pvMax&inv&equipement&
+				// 5&200&12&5&4&25&05&0a
+
+				let save =document.getElementById("sauvegarde").value;
+				save = save.split("&");
+				console.log(save);
+
+				let life = parseInt(save[0]);
+				let money = parseInt(save[1]);
+				let atk = parseInt(save[2]);
+				let xp = parseInt(save[3]);
+				let lvl = parseInt(save[4]);
+				let pvMax = parseInt(save[5]);
+				let inv = [];
+				for(let i = 0; i < save[6].length; i++){
+					inv.push(save[6][i]);
+				}
+
+				let equipement = ["",""];
+
+				if(save[7][0] != "a"){
+					equipement[0] = save[7][0];
+				}
+				if(save[7][1] != "a"){
+					equipement[1] = save[7][1];
+				}
+
+				monstre.modules.actions.init({
+					life : life,
+					money : money,
+					atk : atk,
+					xp : xp,
+					lvl : lvl,
+					pvMax : pvMax,
+					inv : inv,
+					equipement : equipement,
+				})
+
+				monstre.modules.app.displayEquipement(equipement)
+				monstre.modules.app.displayInventaire(inv)
+				monstre.modules.map.generation();
+				monstre.modules.deplacement.init();
+
+				$('.game').html("");
+			},
+
 			start(){
 				monstre.modules.actions.init({
 					life : 20,
@@ -286,7 +344,11 @@ $(document).ready(function(){
 					pvMax : 20,
 					inv : [],
 					equipement : ["",""],
-				});		
+				});	
+
+				monstre.modules.map.generation();
+				monstre.modules.deplacement.init();
+
 			},
 
 			displayStatuts(life,money,atk,lvl,pvMax){
@@ -442,7 +504,7 @@ $(document).ready(function(){
 							deplacement = false;
 							monstre.modules.evenement.Monstre();
 						}	
-						else if(LesMap[mapActuel][emplacementY][emplacementX - 1] == 4){
+						else if(LesMap[mapActuel][emplacementY][emplacementX - 1][0] == 4){
 							emplacementX -= 1;
 							deplacement = false;
 							monstre.modules.evenement.Question();
@@ -472,7 +534,7 @@ $(document).ready(function(){
 							emplacementY += 1;
 							monstre.modules.evenement.Monstre();
 						}	
-						else if(LesMap[mapActuel][emplacementY + 1][emplacementX] == 4){
+						else if(LesMap[mapActuel][emplacementY + 1][emplacementX][0] == 4){
 							emplacementY += 1;
 							monstre.modules.evenement.Question();
 						}	
@@ -502,7 +564,7 @@ $(document).ready(function(){
 							deplacement = false;
 							monstre.modules.evenement.Monstre();
 						}	
-						else if(LesMap[mapActuel][emplacementY - 1][emplacementX] == 4){
+						else if(LesMap[mapActuel][emplacementY - 1][emplacementX][0] == 4){
 							emplacementY -= 1;
 							deplacement = false;
 							monstre.modules.evenement.Question();
@@ -766,6 +828,7 @@ $(document).ready(function(){
 
 			ajoutEquipement(){
 				let stat = monstre.modules.actions.getAll();
+
 				if($(this).parent().attr('id') < 5){
 					if(stat.equipement[0] != ""){
 						stat.atk = stat.atk - items[stat.equipement[0]][1] + items[$(this).parent().attr('id')][1];
@@ -778,8 +841,8 @@ $(document).ready(function(){
 				}
 				else{
 					if(stat.equipement[1] != ""){
-						stat.life = stat.life - items[equipement[1]][1] + items[$(this).parent().attr('id')][1];
-						stat.pvMax = stat.pvMax - items[equipement[1]][1] + items[$(this).parent().attr('id')][1];
+						stat.life = stat.life - items[stat.equipement[1]][1] + items[$(this).parent().attr('id')][1];
+						stat.pvMax = stat.pvMax - items[stat.equipement[1]][1] + items[$(this).parent().attr('id')][1];
 					}
 					else{
 						stat.life += items[$(this).parent().attr('id')][1];
@@ -818,9 +881,7 @@ $(document).ready(function(){
 		}
 	})();
 
-	monstre.modules.app.start();
-	monstre.modules.map.generation();
-	monstre.modules.deplacement.init();
-	
+	$('.lancer').on('click',monstre.modules.app.partie);
+
 });
 
