@@ -188,7 +188,7 @@ $(document).ready(function(){
 					 [1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
 					 [1,1,1,1,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
 					 [1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,"47",0,0,0,0,0,1],
-					 [1,0,3,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1],
+					 [1,0,"32",0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1],
 					 [1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,2,0,0,0,0,0,0,0,0,1,0,0,0,0,1],
 					 [1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1],
 					 [1,1,1,1,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1],
@@ -294,6 +294,7 @@ $(document).ready(function(){
 
 				let save =document.getElementById("sauvegarde").value;
 				save = save.split("&");
+				console.log(save.length);
 
 				LesMap[4][10][15] = 0;
 
@@ -392,7 +393,6 @@ $(document).ready(function(){
 			},
 
 			displayStatuts(life,money,atk,lvl,pvMax){
-				console.log(imagePerso);
 				let HTML = "<img class='stat' src='img/"+imagePerso+".png'/><li id='lvl'>lvl : "+lvl+"</li><li id='life'>life : "+life+" / "+pvMax+"</li><li id='money'>money : "+money+"</li><li id='atk'>atk : "+atk+"</li>";
 				$(".stat").html(HTML);
 			},
@@ -777,17 +777,17 @@ $(document).ready(function(){
 			},
 
 			leMarchand(){
-				let HTML = "<p> Voici ce que je vous propose :";
+				let HTML = "<p> Voici ce que je vous propose : </p>";
 
 
 				HTML += "<table border='1'>";
 				for(let i = 0; i < 3; i++){
-					HTML += "<tr><td><p>"+items[(idMarchand + i)][0]+"</p><img class='inventaire' src='img/"+items[(idMarchand + i)][2]+"'/></td>";
+					HTML += "<tr><td>"+items[(idMarchand + i)][0]+"<img class='inventaire' src='img/"+items[(idMarchand + i)][2]+"'/></td>";
 					HTML += "<td>+"+items[(idMarchand + i)][1]+" atk</td>";
 					HTML += "<td> "+items[(idMarchand + i)][3]+" </td><td><input type='button' id='"+(i + idMarchand)+"' class='acheter' value='acheter'/></tr>";
 				}
 				for(let j = 0; j < 3; j++){
-					HTML += "<tr><td><p>"+items[(idMarchand + j + 5)][0]+"</p><img class='inventaire' src='img/"+items[(idMarchand + j + 5)][2]+"'/></td>";
+					HTML += "<tr><td>"+items[(idMarchand + j + 5)][0]+"<img class='inventaire' src='img/"+items[(idMarchand + j + 5)][2]+"'/></td>";
 					HTML += "<td>+"+items[(idMarchand + j + 5)][1]+" hp max</td>";
 					HTML += "<td> "+items[(idMarchand + j + 5)][3]+" </td><td><input type='button' id='"+(j + 5 + idMarchand)+"' class='acheter' value='acheter'/></tr>";
 				}
@@ -917,6 +917,12 @@ $(document).ready(function(){
 				else if(emplacementY == 0){
 					LesMap[mapActuel][18][emplacementX] = 5;
 				}
+				if(mapActuel == 6 && emplacementY >= 4 && (emplacementX >= 21 || emplacementX <= 16 )){
+					$(".victory").html("<audio src='audio/victoire.mp3' autoplay></audio>");
+				}
+				else{
+					$(".victory").html("");
+				}
 			}
 		}
 	})();
@@ -924,4 +930,3 @@ $(document).ready(function(){
 	$('.lancer').on('click',monstre.modules.app.partie);
 
 });
-
