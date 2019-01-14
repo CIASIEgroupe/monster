@@ -19,17 +19,17 @@ $(document).ready(function(){
 	let Questions = [
           ["La Grande Muraille de Chine est visible de la lune.", "faux"],
           ["Le site Web de diffusion en continu de vidéos YouTube a été acheté dans son intégralité par Face	book pour 1,65 milliard de dollars US en stock.", "faux"],
-          ["Le français est une langue officielle au Canada.", "vraie"],
+          ["Le français est une langue officielle au Canada.", "vrai"],
           ["La vapeur produite par les cigarettes électroniques est en réalité de l'eau.", "faux"],
           ["Le Nutella est produit par la société allemande Ferrero.", "faux"],
-          ["Il y a 86400 secondes dans une journée.", "vraie"],
+          ["Il y a 86400 secondes dans une journée.", "vrai"],
           ["Les taureaux sont attirés par la couleur rouge.", "faux"],
           ["Vous êtes autorisé à vendre votre âme sur eBay.", "faux"],
-          ["En 2010, Twitter et la Bibliothèque du Congrès des États-Unis se sont associés pour archiver chaque tweet de citoyens américains.", "vraie"]];
+          ["En 2010, Twitter et la Bibliothèque du Congrès des États-Unis se sont associés pour archiver chaque tweet de citoyens américains.", "vrai"]];
 
 	var idMarchand = 0;
 	var imagePerso = "perso1";
-	var EnemiLife = [40,4];
+	var EnemiLife = [20,3];
 	var deplacement = true;
 	var mapActuel = 4;
 	var LesMap =	[[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],        
@@ -377,12 +377,12 @@ $(document).ready(function(){
 
 			start(){
 				monstre.modules.actions.init({
-					life : 20,
+					life : 10,
 					money : 20,
 					atk : 8,
 					xp : 0,
 					lvl : 1,
-					pvMax : 20,
+					pvMax : 10,
 					inv : [],
 					equipement : ["",""],
 				});	
@@ -684,6 +684,8 @@ $(document).ready(function(){
 					LesMap[mapActuel][emplacementY][emplacementX - 1] = 0;
 				}
 				monstre.modules.map.generation();
+
+				deplacement = true;
 			},
 
 			finMarchand(){
@@ -763,6 +765,7 @@ $(document).ready(function(){
 			},
 
 			Question(){
+				deplacement = false;
 				let laQuestion = Questions[parseInt(LesMap[mapActuel][emplacementY][emplacementX][1])];
 
 				let HTML = laQuestion[0];
