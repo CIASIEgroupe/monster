@@ -29,7 +29,7 @@ $(document).ready(function(){
 
 	var idMarchand = 0;
 	var imagePerso = "perso1";
-	var EnemiLife = [30,1];
+	var EnemiLife = [15,5];
 	var deplacement = true;
 	var mapActuel = 4;
 	var LesMap =	[[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],        
@@ -379,7 +379,7 @@ $(document).ready(function(){
 				monstre.modules.actions.init({
 					life : 20,
 					money : 20,
-					atk : 12,
+					atk : 8,
 					xp : 0,
 					lvl : 1,
 					pvMax : 20,
@@ -757,7 +757,7 @@ $(document).ready(function(){
 				$("div.combat").html(HTML + HTMLFinCombat);
 
 				monstre.modules.evenement.init();
-				EnemiLife[0] = 30;
+				EnemiLife[0] = 15;
 				monstre.modules.app.displayStatuts(stat.life,stat.money,stat.atk,stat.lvl,stat.pvMax);
 
 			},
