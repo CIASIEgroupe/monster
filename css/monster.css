@@ -18,18 +18,26 @@
     margin-left: 20px;
 }
 
+.stat{
+	font-size: 25px;
+}
+
 .stat, .save{
     width: 50%;
     box-sizing: border-box;
 }
 
 .stat img{
-    width: 100px;
-    height: 100px;
+    width: 125px;
+    height: 125px;
 }
 
 .stat li{
     margin-left: 20px;
+}
+
+.faireSauvegarde{
+	margin-top: 10px;
 }
 
 li{
@@ -78,6 +86,16 @@ img.fight{
 }
 
 .finCombat{
-    margin-left: 20px;
-    height: 30px;
+	margin-top: 23px;
+    margin-left: 35px !important;
+    height: 25px;
+}
+
+.question input{
+	margin-left: 5px;
+	font-size: 20px;
+}
+
+.achat table{
+	border-collapse: collapse;
 }
