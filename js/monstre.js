@@ -126,7 +126,7 @@ $(document).ready(function(){
 				     ["83",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,1,1,1,1,1,1,1,1],
+				     [1,0,0,0,0,0,0,0,0,0,0,0,2,0,0,5,0,0,0,0,0,0,1,1,1,1,1,1,1,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,"30",0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],
 				     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,"85"],
@@ -747,8 +747,8 @@ $(document).ready(function(){
 				let HTML = "<div id='CombatPerso'><img class='fight' src='img/"+imagePerso+".png'/>";				
 				HTML += "<div id='statPerso'><p> life : " + stat.life + "</p><p> atk : " + stat.atk + "</p></div></div>";
 				HTML += "<div id='CombatMonstre'><img class='fight' src='img/ennemi.png'/>";
-				HTML += "<div id='statMonstre'><p> life : " + EnemiLife[0] + "</p><p> atk : " + EnemiLife[1] + "</p></div>";
-				HTML += "<textarea rows='10' cols='70'></textarea></div>";
+				HTML += "<div id='statMonstre'><p> life : " + EnemiLife[0] + "</p><p> atk : " + EnemiLife[1] + "</p></div></div>";
+				/*HTML += "<textarea rows='10' cols='70'></textarea></div>";*/
 
 				$('#statPerso').html("<p> life : " + stat.life + "</p><p> atk : " + stat.atk + "</p>");
 				$("#statMonstre").html("<p> life : " + EnemiLife[0] + "</p><p> atk : " + EnemiLife[1] + "</p>");
@@ -764,7 +764,7 @@ $(document).ready(function(){
 				let laQuestion = Questions[parseInt(LesMap[mapActuel][emplacementY][emplacementX][1])];
 
 				let HTML = laQuestion[0];
-				HTML += "<input class='reponseQuestion' type='button' value='vraie' id='"+LesMap[mapActuel][emplacementY][emplacementX][1]+"'/>";
+				HTML += "<input class='reponseQuestion' type='button' value='vrai' id='"+LesMap[mapActuel][emplacementY][emplacementX][1]+"'/>";
 				HTML += "<input class='reponseQuestion' type='button' value='faux' id='"+LesMap[mapActuel][emplacementY][emplacementX][1]+"'/>";
 
 				LesMap[mapActuel][emplacementY][emplacementX] = 7;				

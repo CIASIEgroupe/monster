@@ -1,89 +1,41 @@
-.monster {
-    display: inline-block;
-    vertical-align: top;
-    height: 100px;
-    margin-left: 50px;
-
+#main{
+    display: flex;
+    flex-direction: row;
 }
 
 .laMap{
     display: inline-block;
-    width:75%;
     box-sizing: border-box;
 }
 
-#monster {
-    border-radius: 5px;
-    background-color: orange;
-    width: 100px;
-}
-
-#actionbox {
-    border: 1px solid grey;
-    min-width: 400px;
-    overflow: hidden;
-}
-#actionbox >p {
-    margin: 0 ;
-}
-ul#status {
+#menu{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    width: 400px;
+}
+
+#menu *{
+    margin-left: 20px;
+}
+
+.stat, .save{
+    width: 50%;
+    box-sizing: border-box;
+}
+
+.stat img{
+    width: 100px;
+    height: 100px;
+}
+
+.stat li{
+    margin-left: 20px;
+}
+
+li{
     list-style: none;
-    margin: 0;
-    padding: 0;
 }
 
-ul#status li {
-    margin-left : 20px;
-}
-
-button {
-    width: 75px;
-    height: 40px;
-    background-color: deepskyblue;
-    border: 0;
-    margin-right: 8px;
-}
-
-button:hover {
-    background-color: dodgerblue;
-}
-
-#Rouge{
-    display: inline-block;
-    width:30px;
-    height:30px;
-    background-color: red;
-}
-
-#Vert{
-    display: inline-block;
-    width:40px;
-    height:40px;
-    background-color: green;
-}
-
-#Marron{
-    display: inline-block;
-    width:30px;
-    height:30px;
-    background-color: brown;
-}
-
-#Gris{
-    display: inline-block;
-    width:40px;
-    height:40px;
-    background-color: grey;
-}
-
-#Personnage{
-    display: inline-block;
-    width:30px;
-    height:30px;
-    background-color: blue;
-}
 span{
     box-sizing: border-box;
     margin-top: -4px;
@@ -102,29 +54,30 @@ img.fight{
     height:80px;
 }
 
-img.stat{
-    width: 100px;
-    height: 100px;
-}
-
-.combat{
-    width:900px;
-    padding-top: 20px;
-    text-align: center;
-}
-
 .question{
+	margin-top: 20px;
     width: 900px;
     text-align: center;
     font-size: 22px;
 }
 
+.combat{
+    margin-top: 20px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
 #CombatPerso{
     width: 80px;
-    display: inline-block;
 }
 
 #CombatMonstre{
+    margin-left: 20px;
     width: 80px;
-    display: inline-block;
+}
+
+.finCombat{
+    margin-left: 20px;
+    height: 30px;
 }
