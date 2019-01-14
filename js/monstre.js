@@ -777,17 +777,17 @@ $(document).ready(function(){
 			},
 
 			leMarchand(){
-				let HTML = "<p> Voici ce que je vous propose :";
+				let HTML = "<p> Voici ce que je vous propose : </p>";
 
 
 				HTML += "<table border='1'>";
 				for(let i = 0; i < 3; i++){
-					HTML += "<tr><td><p>"+items[(idMarchand + i)][0]+"</p><img class='inventaire' src='img/"+items[(idMarchand + i)][2]+"'/></td>";
+					HTML += "<tr><td>"+items[(idMarchand + i)][0]+"<img class='inventaire' src='img/"+items[(idMarchand + i)][2]+"'/></td>";
 					HTML += "<td>+"+items[(idMarchand + i)][1]+" atk</td>";
 					HTML += "<td> "+items[(idMarchand + i)][3]+" </td><td><input type='button' id='"+(i + idMarchand)+"' class='acheter' value='acheter'/></tr>";
 				}
 				for(let j = 0; j < 3; j++){
-					HTML += "<tr><td><p>"+items[(idMarchand + j + 5)][0]+"</p><img class='inventaire' src='img/"+items[(idMarchand + j + 5)][2]+"'/></td>";
+					HTML += "<tr><td>"+items[(idMarchand + j + 5)][0]+"<img class='inventaire' src='img/"+items[(idMarchand + j + 5)][2]+"'/></td>";
 					HTML += "<td>+"+items[(idMarchand + j + 5)][1]+" hp max</td>";
 					HTML += "<td> "+items[(idMarchand + j + 5)][3]+" </td><td><input type='button' id='"+(j + 5 + idMarchand)+"' class='acheter' value='acheter'/></tr>";
 				}
