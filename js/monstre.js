@@ -29,7 +29,7 @@ $(document).ready(function(){
 
 	var idMarchand = 0;
 	var imagePerso = "perso1";
-	var EnemiLife = [15,5];
+	var EnemiLife = [40,4];
 	var deplacement = true;
 	var mapActuel = 4;
 	var LesMap =	[[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],        
